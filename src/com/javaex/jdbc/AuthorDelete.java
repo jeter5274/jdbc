@@ -1,20 +1,17 @@
-package jdbc;
+package com.javaex.jdbc;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class BookSelect {
+public class AuthorDelete {
 
 	public static void main(String[] args) {
-		
+	
 		// 0. import java.sql.*;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		try {
 			// 1. JDBC 드라이버 (Oracle) 로딩
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -24,36 +21,23 @@ public class BookSelect {
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 			
 			// 3. SQL문 준비 / 바인딩 / 실행
-			/*
-			select  book_id,
-	        		title,
-	        		pubs,
-	        		pub_date,
-	        		author_id
-	        from book;
-	        */
 			String query = "";
-			query += " select	book_id,";
-			query += " 			title,";
-			query += "			pubs,";
-			query += "			pub_date,";
-			query += "			author_id";
-			query += " from book";
+			query += " delete author";
+			query += " where author_id = ?";
 			
 			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, 7);
 			
-			rs = pstmt.executeQuery();
+			/*
+			delete author
+			where author_id = 7;
+			*/
+			
+			int count = pstmt.executeUpdate(); 
 			
 			// 4.결과처리
-			while(rs.next()) {
-				int bookId = rs.getInt("book_id");
-				String title = rs.getString("title");
-				String pubs = rs.getString("pubs");
-				Date pubDate = rs.getDate("pub_date");
-				int authorId = rs.getInt("author_id");
-				
-				System.out.println(bookId+ ": " +title+ ", " +pubs+ ", " +pubDate+ ", " +authorId);
-			}
+			System.out.println(count+ "건이 저장되었습니다.");
+			
 		} catch (ClassNotFoundException e) {
 		    System.out.println("error: 드라이버 로딩 실패 - " + e);
 		} catch (SQLException e) {
@@ -61,10 +45,7 @@ public class BookSelect {
 		} finally {
 		  
 		    // 5. 자원정리
-		    try {
-		        if (rs != null) {
-		            rs.close();
-		        }            	
+		    try {          	
 		    	if (pstmt != null) {
 		        	pstmt.close();
 		        }
@@ -76,7 +57,7 @@ public class BookSelect {
 		    }
 		}
 
-		
+
 	}
 
 }

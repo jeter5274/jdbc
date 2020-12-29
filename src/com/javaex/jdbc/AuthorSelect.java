@@ -1,17 +1,18 @@
-package jdbc;
+package com.javaex.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AuthorDelete {
+public class AuthorSelect {
 
 	public static void main(String[] args) {
-	
 		// 0. import java.sql.*;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
 			// 1. JDBC 드라이버 (Oracle) 로딩
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -22,21 +23,35 @@ public class AuthorDelete {
 			
 			// 3. SQL문 준비 / 바인딩 / 실행
 			String query = "";
-			query += " delete author";
-			query += " where author_id = ?";
+			query += " select	author_id, ";
+			query += " 			author_name,";
+			query += " 			author_desc";
+			query += " from author";
 			
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, 7);
+			
+			rs = pstmt.executeQuery();
 			
 			/*
-			delete author
-			where author_id = 7;
+			select  author_id,
+	        		author_name,
+	        		author_desc
+	        from author;
 			*/
 			
-			int count = pstmt.executeUpdate(); 
-			
 			// 4.결과처리
-			System.out.println(count+ "건이 저장되었습니다.");
+			while(rs.next()) {
+				int authorId = rs.getInt("author_id");
+				String authorName = rs.getString("author_name");
+				String authorDesc = rs.getString("author_desc");
+				
+				System.out.println(authorId+ "," +authorName+ "," +authorDesc);
+			}
+			
+			
+			
+			
+			
 			
 		} catch (ClassNotFoundException e) {
 		    System.out.println("error: 드라이버 로딩 실패 - " + e);
@@ -45,7 +60,10 @@ public class AuthorDelete {
 		} finally {
 		  
 		    // 5. 자원정리
-		    try {          	
+		    try {
+		        if (rs != null) {
+		            rs.close();
+		        }            	
 		    	if (pstmt != null) {
 		        	pstmt.close();
 		        }

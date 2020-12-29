@@ -1,4 +1,4 @@
-package jdbc;
+package com.javaex.jdbc;
 
 import java.sql.Connection;
 import java.sql.Date;

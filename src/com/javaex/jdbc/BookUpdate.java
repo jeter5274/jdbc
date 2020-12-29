@@ -1,18 +1,18 @@
-package jdbc;
+package com.javaex.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AuthorSelect {
+public class BookUpdate {
 
 	public static void main(String[] args) {
+		
 		// 0. import java.sql.*;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		
 		try {
 			// 1. JDBC 드라이버 (Oracle) 로딩
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -22,36 +22,24 @@ public class AuthorSelect {
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 			
 			// 3. SQL문 준비 / 바인딩 / 실행
+			/*
+			update book
+			set pubs = '재미주의 출판사'
+			where pubs = '재미주의';
+			*/
 			String query = "";
-			query += " select	author_id, ";
-			query += " 			author_name,";
-			query += " 			author_desc";
-			query += " from author";
+			query += " update book";
+			query += " set pubs = ?";
+			query += " where pubs = ?";
 			
 			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "재미주의 출판사");
+			pstmt.setString(2, "재미주의");
 			
-			rs = pstmt.executeQuery();
-			
-			/*
-			select  author_id,
-	        		author_name,
-	        		author_desc
-	        from author;
-			*/
+			int count = pstmt.executeUpdate();
 			
 			// 4.결과처리
-			while(rs.next()) {
-				int authorId = rs.getInt("author_id");
-				String authorName = rs.getString("author_name");
-				String authorDesc = rs.getString("author_desc");
-				
-				System.out.println(authorId+ "," +authorName+ "," +authorDesc);
-			}
-			
-			
-			
-			
-			
+			System.out.println(count+ "건이 실행되었습니다.");
 			
 		} catch (ClassNotFoundException e) {
 		    System.out.println("error: 드라이버 로딩 실패 - " + e);
@@ -61,10 +49,7 @@ public class AuthorSelect {
 		  
 		    // 5. 자원정리
 		    try {
-		        if (rs != null) {
-		            rs.close();
-		        }            	
-		    	if (pstmt != null) {
+		        if (pstmt != null) {
 		        	pstmt.close();
 		        }
 		    	if (conn != null) {
@@ -74,7 +59,6 @@ public class AuthorSelect {
 		    	System.out.println("error:" + e);
 		    }
 		}
-
 
 	}
 
