@@ -26,6 +26,15 @@ public class BookVo extends AuthorVo{
 		super.authorDesc = authorVoList.get(authorId-1).authorDesc;
 		*/
 	}
+	
+	public BookVo(int bookId, String title, String pubs,Date pub_date, String authorName) {
+		this.bookId = bookId;
+		this.title = title;
+		this.pubs = pubs;
+		this.pub_date = pub_date;
+		super.authorName = authorName;
+	}
+	
 	public BookVo(int bookId, String title, String pubs, String pub_date, int authorId) {
 		this.bookId = bookId;
 		this.authorId = authorId;

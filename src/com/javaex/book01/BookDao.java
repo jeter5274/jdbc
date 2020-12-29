@@ -243,4 +243,81 @@ public class BookDao {
 		}
 		return count;
 	}
+	
+	
+	public List<BookVo> searchBook(String search){
+		List<BookVo> bookVoList = new ArrayList<BookVo>();
+	
+		// 0. import java.sql.*;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			// 1. JDBC 드라이버 (Oracle) 로딩
+			Class.forName(driver);
+			
+			// 2. Connection 얻어오기
+			conn = DriverManager.getConnection(url, id, pw);
+			
+			// 3. SQL문 준비 / 바인딩 / 실행
+			String query = "";
+			query += "select	bo.book_id,";
+			query += " 			bo.title,";
+			query += " 			bo.pubs,";
+			query += " 			bo.pub_date,";
+			query += " 			au.author_name";
+			query += " from book bo left outer join author au ";
+			query += " on bo.author_id = au.author_id ";
+			query += " where bo.title like ?";
+			query += " or bo.pubs like ?";
+			query += " or au.author_name like ?";
+			query += " order by bo.book_id asc ";
+			
+			pstmt = conn.prepareStatement(query);
+			
+			search = "%"+search;
+			search += "%";
+			
+			pstmt.setString(1, search);
+			pstmt.setString(2, search);
+			pstmt.setString(3, search);
+			
+			rs = pstmt.executeQuery();
+
+			// 4.결과처리
+			while(rs.next()) {
+				int bookId = rs.getInt("book_id");
+				String title = rs.getString("title");
+				String pubs = rs.getString("pubs");
+				Date pubDate = rs.getDate("pub_date");
+				String authorName = rs.getNString("author_name");
+				
+				BookVo vo = new BookVo(bookId, title, pubs, pubDate, authorName);
+				
+				bookVoList.add(vo);
+			}
+			
+		} catch (ClassNotFoundException e) {
+		    System.out.println("error: 드라이버 로딩 실패 - " + e);
+		} catch (SQLException e) {
+		    System.out.println("error:" + e);
+		} finally {
+		  
+		    // 5. 자원정리
+		    try {
+		    	if (rs != null) {
+		            rs.close();
+		        }
+		        if (pstmt != null) {
+		        	pstmt.close();
+		        }
+		    	if (conn != null) {
+		        	conn.close();
+		        }
+		    } catch (SQLException e) {
+		    	System.out.println("error:" + e);
+		    }
+		}
+		return bookVoList;
+	}
 }
