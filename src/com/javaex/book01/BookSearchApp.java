@@ -23,6 +23,7 @@ public class BookSearchApp {
 			System.out.println(bookVoList.get(i).bookId+ ". " +bookVoList.get(i).title+ ", " +bookVoList.get(i).pubs+ ", " +bookVoList.get(i).pub_date+ ", " +bookVoList.get(i).authorName);
 		}
 		
+		sc.close();
 	}
 
 }

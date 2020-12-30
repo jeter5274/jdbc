@@ -11,7 +11,7 @@ public class BookAuthorApp {
 		List<AuthorVo> authorVoList = new ArrayList<AuthorVo>();
 		BookDao bookDao = new BookDao();
 		List<BookVo> bookVoList = new ArrayList<BookVo>();
-		/*
+		
 		// 작가 6명 등록
 		//AuthorDao, AuthorVo 이용해서 등록
 		AuthorVo author01 = new AuthorVo("이문열", "경북 영양");
@@ -32,13 +32,12 @@ public class BookAuthorApp {
 		AuthorVo author06 = new AuthorVo("김영하", "알쓸신잡");
 		authorDao.authorInsert(author06);
 		
-		/*	
 		//수정
-		AuthorVo author07 = new AuthorVo(6, "김영하", "소설작가");
-		authorDao.authorUpdate(author07);
+		//AuthorVo author07 = new AuthorVo(6, "김영하", "소설작가");
+		//authorDao.authorUpdate(author07);
 		
 		//삭제
-		authorDao.authorDelete(6);
+		//authorDao.authorDelete(6);
 		
 		//출력확인 - 리스트
 		authorVoList = authorDao.getAuthorList();
@@ -46,8 +45,7 @@ public class BookAuthorApp {
 		for(int i=0;i<authorVoList.size();i++) {
 			System.out.println(authorVoList.get(i).authorId+ ". " +authorVoList.get(i).authorName+ ", " +authorVoList.get(i).authorDesc);
 		}
-		*/
-		/*
+		
 		// 책 8권 등록
 		// BookDao, BookVo 이용해서 등록
 		BookVo bookVo01 = new BookVo("우리들의 일그러진 영웅", "다림", "1998-02-22", 1);
@@ -73,15 +71,13 @@ public class BookAuthorApp {
 		
 		BookVo bookVo08 = new BookVo("26년", "재미주의", "2012-02-04", 5);
 		bookDao.bookInsert(bookVo08);
-		*/
-		/*
-		//수정
-		BookVo bookVo09 = new BookVo(1, "오직두사람", "문학동네", "2017-05-04", 1);
-		bookDao.bookUpdate(bookVo09);
 		
-		BookVo bookVo10 = new BookVo(5, "26년 ver.2020", "재미주의", "2012-02-04", 5);
-		bookDao.bookUpdate(bookVo10);
-		*/
+		//수정
+		//BookVo bookVo09 = new BookVo(1, "오직두사람", "문학동네", "2017-05-04", 1);
+		//bookDao.bookUpdate(bookVo09);
+		
+		//BookVo bookVo10 = new BookVo(5, "26년 ver.2020", "재미주의", "2012-02-04", 5);
+		//bookDao.bookUpdate(bookVo10);
 		
 		//삭제
 		//bookDao.bookDelete(3);

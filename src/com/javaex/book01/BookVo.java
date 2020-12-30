@@ -3,38 +3,42 @@ package com.javaex.book01;
 import java.sql.Date;
 import java.util.List;
 
-public class BookVo extends AuthorVo{
+import com.javaex.book02.AuthorDao;
+import com.javaex.book02.AuthorVo;
+
+public class BookVo{
 
 	//필드
 	public int bookId, authorId;
-	public String title, pubs;
+	public String title, pubs, authorName, authorDesc;
 	public Date pub_date;
 	
 	//생성자
 	public BookVo() {}
+	
+	//Insert에서 사용
 	public BookVo(String title, String pubs, String pub_date, int authorId) {
 		this.authorId = authorId;
 		this.title = title;
 		this.pubs = pubs;
 		this.pub_date = java.sql.Date.valueOf(pub_date);
 		
-		/*
-		//쿼리문으로 불러오는 것이기 때문에 생성자에서 만들 필요가 없음
+		//작가정보를 가져옴
 		AuthorDao authorDao = new AuthorDao();
 		List<AuthorVo> authorVoList = authorDao.getAuthorList();
-		super.authorName = authorVoList.get(authorId-1).authorName;
-		super.authorDesc = authorVoList.get(authorId-1).authorDesc;
-		*/
+		authorName = authorVoList.get(authorId-1).authorName;
+		authorDesc = authorVoList.get(authorId-1).authorDesc;
 	}
-	
-	public BookVo(int bookId, String title, String pubs,Date pub_date, String authorName) {
+	//BookVo.searchBook에서 사용
+	public BookVo(int bookId, String title, String pubs, Date pub_date, String authorName) {
 		this.bookId = bookId;
 		this.title = title;
 		this.pubs = pubs;
 		this.pub_date = pub_date;
-		super.authorName = authorName;
+		this.authorName = authorName;
 	}
 	
+	//Update에서 사용
 	public BookVo(int bookId, String title, String pubs, String pub_date, int authorId) {
 		this.bookId = bookId;
 		this.authorId = authorId;
@@ -42,24 +46,23 @@ public class BookVo extends AuthorVo{
 		this.pubs = pubs;
 		this.pub_date = java.sql.Date.valueOf(pub_date);
 		
-		/*
-		//쿼리문으로 불러오는 것이기 때문에 생성자에서 만들 필요가 없음
+		//작가정보를 가져옴(작가정보를 수정할 경우를 대비)
 		AuthorDao authorDao = new AuthorDao();
 		List<AuthorVo> authorVoList = authorDao.getAuthorList();
-		super.authorName = authorVoList.get(authorId-1).authorName;
-		super.authorDesc = authorVoList.get(authorId-1).authorDesc;
-		*/
+		authorName = authorVoList.get(authorId-1).authorName;
+		authorDesc = authorVoList.get(authorId-1).authorDesc;
 	}
 	
+	//BookVo.bookInsert에서 사용
 	public BookVo(int bookId, String title, String pubs,Date pub_date, int authorId, String authorName, String authorDesc) {
 		this.bookId = bookId;
 		this.authorId = authorId;
 		this.title = title;
 		this.pubs = pubs;
 		this.pub_date = pub_date;
-		super.authorId = authorId;
-		super.authorName = authorName;
-		super.authorDesc = authorDesc;
+		this.authorId = authorId;
+		this.authorName = authorName;
+		this.authorDesc = authorDesc;
 	}
 	
 	//메소드 - getter/setter
@@ -94,7 +97,19 @@ public class BookVo extends AuthorVo{
 	public void setPub_date(Date pub_date) {
 		this.pub_date = pub_date;
 	}
-	
+	public String getAuthorName() {
+		return authorName;
+	}
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
+	public String getAuthorDesc() {
+		return authorDesc;
+	}
+	public void setAuthorDesc(String authorDesc) {
+		this.authorDesc = authorDesc;
+	}
+
 	//메소드 - 일반
 	@Override
 	public String toString() {
