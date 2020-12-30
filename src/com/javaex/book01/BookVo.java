@@ -39,7 +39,7 @@ public class BookVo /*extends AuthorVo*/{ //잘 못된 의미
 	}
 	*/
 	
-	//BookVo.searchBook에서 사용
+	//bookDao.searchBook에서 사용
 	public BookVo(int bookId, String title, String pubs, Date pub_date, String authorName) {
 		this.bookId = bookId;
 		this.title = title;
@@ -57,7 +57,7 @@ public class BookVo /*extends AuthorVo*/{ //잘 못된 의미
 		this.pub_date = java.sql.Date.valueOf(pub_date);
 	}
 	
-	//BookVo.bookInsert에서 사용
+	//bookDao.getBookList에서 사용
 	public BookVo(int bookId, String title, String pubs,Date pub_date, int authorId, String authorName, String authorDesc) {
 		this.bookId = bookId;
 		this.authorId = authorId;
