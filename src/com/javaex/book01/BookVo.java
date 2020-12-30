@@ -7,7 +7,7 @@ public class BookVo /*extends AuthorVo*/{ //잘 못된 의미
 	//필드
 	public int bookId, authorId;
 	public String title, pubs, authorName, authorDesc;	//authorName, authorDesc 추가
-	public Date pub_date;
+	public Date pub_date; //sql에서 날짜문자열을 알아서 인식하기때문에 스트링이 편할 수 있음
 	
 	//생성자
 	public BookVo() {}
