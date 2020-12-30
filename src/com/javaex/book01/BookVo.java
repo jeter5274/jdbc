@@ -1,10 +1,6 @@
 package com.javaex.book01;
 
 import java.sql.Date;
-import java.util.List;
-
-import com.javaex.book02.AuthorDao;
-import com.javaex.book02.AuthorVo;
 
 public class BookVo /*extends AuthorVo*/{ //잘 못된 의미
 
