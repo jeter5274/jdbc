@@ -22,12 +22,6 @@ public class BookVo /*extends AuthorVo*/{ //잘 못된 의미
 		this.title = title;
 		this.pubs = pubs;
 		this.pub_date = java.sql.Date.valueOf(pub_date);
-		
-		//작가정보를 가져옴
-		AuthorDao authorDao = new AuthorDao();
-		List<AuthorVo> authorVoList = authorDao.getAuthorList();
-		authorName = authorVoList.get(authorId-1).authorName;
-		authorDesc = authorVoList.get(authorId-1).authorDesc;
 	}
 	/*
 	public BookVo(String title, String pubs, String pub_date, int authorId) {
@@ -61,12 +55,6 @@ public class BookVo /*extends AuthorVo*/{ //잘 못된 의미
 		this.title = title;
 		this.pubs = pubs;
 		this.pub_date = java.sql.Date.valueOf(pub_date);
-		
-		//작가정보를 가져옴(작가정보를 수정할 경우를 대비)
-		AuthorDao authorDao = new AuthorDao();
-		List<AuthorVo> authorVoList = authorDao.getAuthorList();
-		authorName = authorVoList.get(authorId-1).authorName;
-		authorDesc = authorVoList.get(authorId-1).authorDesc;
 	}
 	
 	//BookVo.bookInsert에서 사용
