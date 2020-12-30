@@ -6,11 +6,11 @@ import java.util.List;
 import com.javaex.book02.AuthorDao;
 import com.javaex.book02.AuthorVo;
 
-public class BookVo{
+public class BookVo /*extends AuthorVo*/{ //잘 못된 의미
 
 	//필드
 	public int bookId, authorId;
-	public String title, pubs, authorName, authorDesc;
+	public String title, pubs, authorName, authorDesc;	//authorName, authorDesc 추가
 	public Date pub_date;
 	
 	//생성자
@@ -29,6 +29,22 @@ public class BookVo{
 		authorName = authorVoList.get(authorId-1).authorName;
 		authorDesc = authorVoList.get(authorId-1).authorDesc;
 	}
+	/*
+	public BookVo(String title, String pubs, String pub_date, int authorId) {
+		this.authorId = authorId;
+		this.title = title;
+		this.pubs = pubs;
+		this.pub_date = java.sql.Date.valueOf(pub_date);
+
+		//쿼리문으로 불러오는 것이기 때문에 생성자에서 만들 필요가 없음
+		//작가정보를 가져옴
+		AuthorDao authorDao = new AuthorDao();
+		List<AuthorVo> authorVoList = authorDao.getAuthorList();
+		super.authorName = authorVoList.get(authorId-1).authorName;
+		super.authorDesc = authorVoList.get(authorId-1).authorDesc;
+	}
+	*/
+	
 	//BookVo.searchBook에서 사용
 	public BookVo(int bookId, String title, String pubs, Date pub_date, String authorName) {
 		this.bookId = bookId;
