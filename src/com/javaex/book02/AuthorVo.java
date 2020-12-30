@@ -3,8 +3,8 @@ package com.javaex.book02;
 public class AuthorVo {
 
 	//필드
-	public int authorId = 0;
-	public String authorName=null, authorDesc=null;
+	public int authorId;
+	public String authorName, authorDesc;
 	
 	//생성자
 	public AuthorVo() {}
